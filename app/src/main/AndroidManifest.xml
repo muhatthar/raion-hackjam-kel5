@@ -9,8 +9,17 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.RaionHackjamKel5"
+        android:theme="@style/Theme.RaionHackjamKel5.NoActionBar"
         tools:targetApi="31">
+        <activity
+            android:name=".homepage.HomePageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".login.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".login.SignInActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

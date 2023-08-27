@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "41356685412",
+    "project_id": "raionhackjamkel5",
+    "storage_bucket": "raionhackjamkel5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41356685412:android:657fa918a10d5179c1ef71",
+        "android_client_info": {
+          "package_name": "com.example.raionhackjamkel5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41356685412-9nhktpmnohneh6ctbo3g81q1cvc61j9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY0maE4TBsrbpEhrdjY13hiyRO4hGZpcI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41356685412-9nhktpmnohneh6ctbo3g81q1cvc61j9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
