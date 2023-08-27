@@ -34,11 +34,12 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        et_Nama = findViewById(R.id.etNama);
-        et_Email = findViewById(R.id.etEmail);
-        et_Whatsapp = findViewById(R.id.etWhatsapp);
-        et_Kota = findViewById(R.id.etKotaAsal);
-        et_Password = findViewById(R.id.etPassword);
+        et_Nama = findViewById(R.id.etRNama);
+        et_Email = findViewById(R.id.etREmail);
+        et_Whatsapp = findViewById(R.id.etRWhatsapp);
+        et_Kota = findViewById(R.id.etRKotaAsal);
+        et_Password = findViewById(R.id.etRPassword);
+        btn_SignUp = findViewById(R.id.btnRSignUp);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -103,24 +104,27 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
+                            Toast.makeText(SignUpActivity.this, "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            String nama = et_Nama.getText().toString();
-                            String whatsapp = et_Whatsapp.getText().toString();
-                            String asal = et_Kota.getText().toString();
-                            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                            database.child("User").child(userId).child("UserData").setValue(new UserModel(nama, whatsapp, asal)).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(SignUpActivity.this, "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
-                                    updateUI(user);
-                                }
-                            });
                         } else {
                             Toast.makeText(SignUpActivity.this, "Email dan Password tidak Valid", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
                     }
                 });
+
+        String nama = et_Nama.getText().toString();
+        String whatsapp = et_Whatsapp.getText().toString();
+        String asal = et_Kota.getText().toString();
+        FirebaseUser user = mAuth.getCurrentUser();
+//      String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        database.child("User").child(mAuth.getUid()).push().setValue(new UserModel(nama, whatsapp, asal)).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(SignUpActivity.this, "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
+                updateUI(user);
+            }
+        });
     }
 }

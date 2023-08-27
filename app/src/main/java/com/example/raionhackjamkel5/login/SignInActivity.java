@@ -46,7 +46,7 @@ public class SignInActivity extends AppCompatActivity {
         et_Password.addTextChangedListener(textWatcher);
 
         btn_SignUp.setOnClickListener(v -> {
-            Intent signup = new Intent (this, SignUpActivity.class);
+            Intent signup = new Intent (SignInActivity.this, SignUpActivity.class);
             startActivity(signup);
         });
 
@@ -55,12 +55,12 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        updateUI(currentUser);
+//    }
 
     public void updateUI(FirebaseUser user){
         if (user != null){

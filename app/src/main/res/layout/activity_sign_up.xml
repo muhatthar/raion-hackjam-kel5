@@ -70,7 +70,7 @@
                 android:layout_marginBottom="30dp">
 
                 <EditText
-                    android:id="@+id/etNama"
+                    android:id="@+id/etRNama"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -102,7 +102,7 @@
                 android:layout_marginBottom="30dp">
 
                 <EditText
-                    android:id="@+id/etEmail"
+                    android:id="@+id/etREmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -134,7 +134,7 @@
                 android:layout_marginBottom="30dp">
 
                 <EditText
-                    android:id="@+id/etWhatsapp"
+                    android:id="@+id/etRWhatsapp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -166,7 +166,7 @@
                 android:layout_marginBottom="30dp">
 
                 <EditText
-                    android:id="@+id/etKotaAsal"
+                    android:id="@+id/etRKotaAsal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -198,7 +198,7 @@
                 android:layout_marginBottom="44dp">
 
                 <EditText
-                    android:id="@+id/etPassword"
+                    android:id="@+id/etRPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -213,7 +213,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnSignUp"
+                android:id="@+id/btnRSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_primary_bg"
