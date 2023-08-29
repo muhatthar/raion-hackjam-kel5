@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Raion Hackjam Kel5</string>
+    <string name="app_name">Second Goods</string>
+    <string name="sign_in">Sudah punya akun? <u><b><font color="#3C8918">Masuk</font></b></u></string>
+    <string name="onboard_title1">Kesempatan Baru</string>
+    <string name="onboard_title2">Eksplorasi Hemat</string>
+    <string name="onboard_desc1">Selamat datang di Second Goods! \nDapatkan pengalaman berbelanja unik \nsambil mendukung siklus berkelanjutan. Yuk \nmengenal bagaimana Second Goods bisa \nmenjadi teman baikmu.</string>
+    <string name="onboard_desc2">Bersiaplah untuk menemukan beragam \nbarang berkualitas yang masih layak pakai, \ndengan harga yang lebih terjangkau. Mari \nkita mulai perjalanan hemat Anda.</string>
 </resources>
