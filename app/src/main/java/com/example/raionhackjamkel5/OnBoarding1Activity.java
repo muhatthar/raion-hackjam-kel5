@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.raionhackjamkel5.R;
 import com.example.raionhackjamkel5.helpers.SaveState;
 import com.example.raionhackjamkel5.homepage.HomePageActivity;
+import com.example.raionhackjamkel5.login.SignInActivity;
 
 public class OnBoarding1Activity extends AppCompatActivity {
 
@@ -36,7 +37,7 @@ public class OnBoarding1Activity extends AppCompatActivity {
         dotsFunction(0);
         saveState = new SaveState(OnBoarding1Activity.this, "0B");
         if (saveState.getState() == 1){
-            Intent homepage = new Intent(OnBoarding1Activity.this, HomePageActivity.class);
+            Intent homepage = new Intent(OnBoarding1Activity.this, SignInActivity.class);
             startActivity(homepage);
         }
 
@@ -80,20 +81,21 @@ public class OnBoarding1Activity extends AppCompatActivity {
         public void onPageSelected(int position) {
             dotsFunction(position);
             currentPosition = position;
-            if (currentPosition <= 1){
+            if (currentPosition < 1){
+                btn_Next.setText("Lanjut");
+                btn_Next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        view_Pager.setCurrentItem(currentPosition + 1);
+                    }
+                });
+            } else {
                 btn_Next.setText("Mulai");
                 btn_Next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        view_Pager.setCurrentItem(currentPosition);
-                    }
-                });
-            } else {
-                btn_Next.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
                         saveState.setState(1);
-                        Intent homepage = new Intent(OnBoarding1Activity.this, HomePageActivity.class);
+                        Intent homepage = new Intent(OnBoarding1Activity.this, SignInActivity.class);
                         startActivity(homepage);
                     }
                 });
