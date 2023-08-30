@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp">
+
+        <ImageView
+            android:id="@+id/ivFotoProdukSaya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/foto_produk" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvNamaProdukSaya"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kursi kerja putar"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="15sp"
+        android:textColor="#3E3E3E"
+        android:layout_marginHorizontal="20dp"/>
+
+    <TextView
+        android:id="@+id/tvHargaProdukSaya"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rp 120.000"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="14sp"
+        android:textColor="#0E0E0E"
+        android:layout_marginHorizontal="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/tvKotaProdukSaya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kota Malang"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="13sp"
+            android:textColor="#A6A1A1"
+            android:layout_weight="1"/>
+        
+        <ImageButton
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_edit"
+            android:background="@android:color/transparent"
+            android:padding="2dp"/>
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_delete"
+            android:background="@android:color/transparent"
+            android:padding="2dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

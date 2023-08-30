@@ -25,50 +25,98 @@
         android:orientation="horizontal">
         
         <LinearLayout
+            android:id="@+id/homePageLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginVertical="10dp">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_home_solid"
-                android:layout_marginVertical="22dp"/>
+                android:id="@+id/ivHomePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_home_solid"/>
 
+            <TextView
+                android:id="@+id/tvHomePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beranda"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="13sp"
+                android:textColor="#3C8918"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/produkPageLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginVertical="10dp">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_bookmark"
-                android:layout_marginVertical="22dp"/>
+                android:id="@+id/ivProdukPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_produk"/>
 
+            <TextView
+                android:id="@+id/tvProdukPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Produk Saya"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="13sp"
+                android:textColor="#A6A1A1"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/profilePageLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginVertical="10dp">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_profile"
-                android:layout_marginVertical="22dp"/>
+                android:id="@+id/ivProfilePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_profile"/>
 
+            <TextView
+                android:id="@+id/tvProfilePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profil"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="13sp"
+                android:textColor="#A6A1A1"/>
 
         </LinearLayout>
         
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@id/navbarLayout"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="18dp"
+        android:elevation="4dp"
+        android:visibility="gone"
+        android:foreground="@drawable/fab_shape"
+        app:layout_constraintBottom_toTopOf="@id/navbarLayout"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

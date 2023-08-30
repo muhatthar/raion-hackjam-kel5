@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp">
+
+        <ImageView
+            android:id="@+id/ivFotoProduk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/foto_produk" />
+
+        <ImageButton
+            android:id="@+id/btnBookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bookmark"
+            android:layout_alignEnd="@id/ivFotoProduk"
+            android:layout_alignBottom="@id/ivFotoProduk"
+            android:background="@drawable/bookmark_bg"
+            android:paddingVertical="7dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvNamaProduk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kursi kerja putar"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="15sp"
+        android:textColor="#3E3E3E"
+        android:layout_marginHorizontal="20dp"/>
+
+    <TextView
+        android:id="@+id/tvHargaProduk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rp 120.000"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="14sp"
+        android:textColor="#0E0E0E"
+        android:layout_marginHorizontal="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center">
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location"
+            android:layout_marginEnd="8dp"/>
+        
+        <TextView
+            android:id="@+id/tvKotaProduk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kota Malang"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="13sp"
+            android:textColor="#A6A1A1"/>
+        
+    </LinearLayout>
+
+</LinearLayout>
