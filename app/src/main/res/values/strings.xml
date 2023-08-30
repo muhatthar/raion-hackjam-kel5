@@ -5,4 +5,15 @@
     <string name="onboard_title2">Eksplorasi Hemat</string>
     <string name="onboard_desc1">Selamat datang di Second Goods! \nDapatkan pengalaman berbelanja unik \nsambil mendukung siklus berkelanjutan. Yuk \nmengenal bagaimana Second Goods bisa \nmenjadi teman baikmu.</string>
     <string name="onboard_desc2">Bersiaplah untuk menemukan beragam \nbarang berkualitas yang masih layak pakai, \ndengan harga yang lebih terjangkau. Mari \nkita mulai perjalanan hemat Anda.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="kategori_produk">
+        <item>Pilih kategori produk kamu</item>
+        <item>Dapur</item>
+        <item>Perabot</item>
+        <item>Hiasan</item>
+        <item>Elektronik</item>
+        <item>Kamar</item>
+    </string-array>
 </resources>
