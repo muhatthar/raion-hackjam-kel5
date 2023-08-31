@@ -2,6 +2,7 @@ package com.example.raionhackjamkel5.homepage;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.raionhackjamkel5.R;
+import com.example.raionhackjamkel5.adapter.KatalogAdapter;
+import com.example.raionhackjamkel5.model.KatalogModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,7 +33,10 @@ public class KatalogFragment extends Fragment {
 
     View view;
     private RecyclerView recyclerView;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     RecyclerView.LayoutManager layoutManager;
+    ArrayList<KatalogModel> katalogItems;
+    KatalogAdapter katalogAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,6 +88,31 @@ public class KatalogFragment extends Fragment {
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
+        showData();
         return view;
+    }
+
+    private void showData(){
+        database.child("SemuaProduk").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                katalogItems = new ArrayList<>();
+                for (DataSnapshot item : snapshot.getChildren()){
+                    KatalogModel katalog = item.getValue(KatalogModel.class);
+                    katalog.setKey(item.getKey());
+                    katalogItems.add(katalog);
+                }
+                Collections.reverse(katalogItems);
+                katalogAdapter = new KatalogAdapter(katalogItems, getContext());
+                recyclerView.setAdapter(katalogAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                katalogItems = new ArrayList<>();
+
+
+            }
+        });
     }
 }

@@ -24,4 +24,21 @@
         <item name="textAllCaps">false</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">#0E0E0E</item>
+        <item name="android:textColorHint">#939393</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="profilePictureBg">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

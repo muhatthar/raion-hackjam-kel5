@@ -4,6 +4,7 @@ public class UserModel {
     private String nama;
     private String whatsapp;
     private String asalKota;
+    private String key;
 
     public UserModel(){
 
@@ -37,5 +38,13 @@ public class UserModel {
 
     public void setAsalKota(String asalKota) {
         this.asalKota = asalKota;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

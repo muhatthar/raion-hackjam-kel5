@@ -2,6 +2,7 @@ package com.example.raionhackjamkel5.homepage;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -11,9 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.raionhackjamkel5.R;
+import com.example.raionhackjamkel5.adapter.SectionPagerAdapter;
+import com.example.raionhackjamkel5.model.KatalogModel;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -151,6 +157,7 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setUpViewPager(viewPager);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -170,5 +177,12 @@ public class HomePageFragment extends Fragment {
 
             }
         });
+    }
+
+    private void setUpViewPager(ViewPager viewPager){
+        SectionPagerAdapter adapter = new SectionPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new KatalogFragment());
+
+        viewPager.setAdapter(adapter);
     }
 }

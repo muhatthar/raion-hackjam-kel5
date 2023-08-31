@@ -152,7 +152,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 String kota = et_Kota.getText().toString();
                                 String whatsapp = et_Whatsapp.getText().toString();
 
-                                DatabaseReference userRef = database.child("Users").child(userId);
+                                DatabaseReference userRef = database.child("Users").child(userId).child("UserData");
                                 UserModel userModel = new UserModel(nama, whatsapp, kota);
                                 userRef.setValue(userModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override

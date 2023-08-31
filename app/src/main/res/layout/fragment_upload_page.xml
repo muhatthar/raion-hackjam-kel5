@@ -1,17 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".upload.UploadPageFragment">
+    tools:context=".upload.UploadPageFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center"
+        android:layout_marginTop="52dp">
+
+        <ImageButton
+            android:id="@+id/btnPBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:background="@android:color/transparent"
+            android:layout_marginEnd="16dp"/>
+
+        <SearchView
+            android:id="@+id/svProdukSaya"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:queryHint="Cari produk di sini..."
+            android:iconifiedByDefault="false"
+            android:background="@drawable/search_bg"
+            android:theme="@style/SearchViewStyle"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/search_ic_bg"
+            android:paddingHorizontal="15dp">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_search_white"
+                app:tint="@color/white"
+                android:background="@android:color/transparent"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvKatalog"
+        android:id="@+id/rvProdukSaya"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/produk_saya_item">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-</FrameLayout>
+</LinearLayout>
