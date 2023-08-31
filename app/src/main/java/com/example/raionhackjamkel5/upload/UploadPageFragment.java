@@ -2,13 +2,29 @@ package com.example.raionhackjamkel5.upload;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.raionhackjamkel5.R;
+import com.example.raionhackjamkel5.adapter.KatalogAdapter;
+import com.example.raionhackjamkel5.adapter.ProdukSayaAdapter;
+import com.example.raionhackjamkel5.model.KatalogModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +32,13 @@ import com.example.raionhackjamkel5.R;
  * create an instance of this fragment.
  */
 public class UploadPageFragment extends Fragment {
+
+    View view;
+    private RecyclerView recyclerView;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    RecyclerView.LayoutManager layoutManager;
+    ArrayList<KatalogModel> produkItems;
+    ProdukSayaAdapter produkSayaAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +84,37 @@ public class UploadPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_upload_page, container, false);
+        view = inflater.inflate(R.layout.fragment_upload_page, container, false);
+
+        recyclerView = view.findViewById(R.id.rvProdukSaya);
+        layoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+
+        showData();
+        return view;
+    }
+
+    private void showData() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        database.child("Users").child(userId).child("ProdukSaya").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                produkItems = new ArrayList<>();
+                for (DataSnapshot item : snapshot.getChildren()){
+                    KatalogModel produk = item.getValue(KatalogModel.class);
+                    produk.setKey(item.getKey());
+                    produkItems.add(produk);
+                }
+                Collections.reverse(produkItems);
+                produkSayaAdapter = new ProdukSayaAdapter(produkItems, getContext());
+                recyclerView.setAdapter(produkSayaAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
