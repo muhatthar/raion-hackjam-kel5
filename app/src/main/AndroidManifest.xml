@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RaionHackjamKel5.NoActionBar"
         tools:targetApi="31">
+        <activity
+            android:name=".profil.PengaturanAkunPage"
+            android:exported="false" />
+        <activity
+            android:name=".profil.BookmarkPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".upload.EditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.HomeSearchActivity"
+            android:exported="false" />
         <activity
             android:name=".detail.DetailProdukActivity"
             android:exported="false" />

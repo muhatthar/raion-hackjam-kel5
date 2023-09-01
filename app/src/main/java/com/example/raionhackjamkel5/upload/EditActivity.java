@@ -1,20 +1,21 @@
 package com.example.raionhackjamkel5.upload;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.raionhackjamkel5.R;
 import com.example.raionhackjamkel5.homepage.HomePageActivity;
 import com.example.raionhackjamkel5.model.KatalogModel;
@@ -33,49 +34,62 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.List;
-import java.util.Locale;
+public class EditActivity extends AppCompatActivity {
 
-public class UploadPageActivity extends AppCompatActivity {
-
+    ShapeableImageView imgProdukEdit;
+    ImageButton btn_Back;
+    EditText etNamaProdukEdit, etHargaBeliEdit, etHargaJualEdit, etLokasiProdukEdit, etDeskripsiEdit;
+    Spinner sKategoriProdukEdit;
+    AppCompatButton btnSimpanProdukEdit;
+    Uri imageUri = null;
+    FirebaseStorage mStorage;
     private static final int galleryCode = 1;
-    private EditText et_NamaProduk, et_HargaBeli, et_HargaJual, et_LokasiProduk, et_DeskripsiProduk;
-    private Spinner sKategoriProduk;
-    private ShapeableImageView img_Produk;
-    private AppCompatButton btn_Simpan;
-    private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    private Uri imageUri = null;
-    private FirebaseStorage mStorage;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload_page);
+        setContentView(R.layout.activity_edit);
 
-        et_NamaProduk = findViewById(R.id.etNamaProduk);
-        et_HargaBeli = findViewById(R.id.etHargaBeli);
-        et_HargaJual = findViewById(R.id.etHargaJual);
-        et_LokasiProduk = findViewById(R.id.etLokasiProduk);
-        et_DeskripsiProduk = findViewById(R.id.etDeskripsiProduk);
-        sKategoriProduk = findViewById(R.id.sKategoriProduk);
-        img_Produk = findViewById(R.id.imgProduk);
-        btn_Simpan = findViewById(R.id.btnSimpanProduk);
-
-        et_NamaProduk.addTextChangedListener(textWatcher);
-        et_HargaBeli.addTextChangedListener(textWatcher);
-        et_HargaJual.addTextChangedListener(textWatcher);
-        et_LokasiProduk.addTextChangedListener(textWatcher);
-        et_DeskripsiProduk.addTextChangedListener(textWatcher);
+        btn_Back = findViewById(R.id.btnBack);
+        imgProdukEdit = findViewById(R.id.imgProdukEdit);
+        etNamaProdukEdit = findViewById(R.id.etNamaProdukEdit);
+        etHargaBeliEdit = findViewById(R.id.etHargaBeliEdit);
+        etHargaJualEdit = findViewById(R.id.etHargaJualEdit);
+        etLokasiProdukEdit = findViewById(R.id.etLokasiProdukEdit);
+        etDeskripsiEdit = findViewById(R.id.etDeskripsiProdukEdit);
+        sKategoriProdukEdit = findViewById(R.id.sKategoriProdukEdit);
+        btnSimpanProdukEdit = findViewById(R.id.btnSimpanProdukEdit);
 
         mStorage = FirebaseStorage.getInstance();
 
-        img_Produk.setOnClickListener(v -> {
+        Intent getData = getIntent();
+        String namaProduk = getData.getStringExtra("nama");
+        String hargaBeli = getData.getStringExtra("hargaBeli");
+        String hargaJual = getData.getStringExtra("hargaJual");
+        String lokasi = getData.getStringExtra("lokasi");
+        String deskripsi = getData.getStringExtra("deskripsi");
+        String fotoProduk = getData.getStringExtra("fotoProduk");
+        Picasso.get().load(fotoProduk).into(imgProdukEdit);
+
+        etNamaProdukEdit.setText(namaProduk);
+        etHargaBeliEdit.setText(hargaBeli);
+        etHargaJualEdit.setText(hargaJual);
+        etLokasiProdukEdit.setText(lokasi);
+        etDeskripsiEdit.setText(deskripsi);
+
+        imgProdukEdit.setOnClickListener(v -> {
             Intent addImg = new Intent(Intent.ACTION_GET_CONTENT);
             addImg.setType("image/*");
             startActivityForResult(addImg, galleryCode);
+
+            if (fotoProduk != null) {
+                StorageReference storageRef = mStorage.getReferenceFromUrl(fotoProduk);
+
+                storageRef.delete();
+            }
         });
     }
 
@@ -85,29 +99,32 @@ public class UploadPageActivity extends AppCompatActivity {
 
         if (requestCode == galleryCode && resultCode == RESULT_OK) {
             imageUri = data.getData();
-            img_Produk.setImageURI(imageUri);
+            imgProdukEdit.setImageURI(imageUri);
         }
 
-        btn_Simpan.setOnClickListener(v -> {
-            String getNamaProduk = et_NamaProduk.getText().toString();
-            String getHargaBeli = et_HargaBeli.getText().toString();
-            String getHargaJual = et_HargaJual.getText().toString();
-            String getLokasiProduk = et_LokasiProduk.getText().toString();
-            String getDeskripsiProduk = et_DeskripsiProduk.getText().toString();
-            String getKategoriProduk = sKategoriProduk.getSelectedItem().toString();
+        Intent getDataKey = getIntent();
+        String key = getDataKey.getStringExtra("key");
+
+        btnSimpanProdukEdit.setOnClickListener(v -> {
+            String getNamaProduk = etNamaProdukEdit.getText().toString();
+            String getHargaBeli = etHargaBeliEdit.getText().toString();
+            String getHargaJual = etHargaJualEdit.getText().toString();
+            String getLokasiProduk = etLokasiProdukEdit.getText().toString();
+            String getDeskripsiProduk = etDeskripsiEdit.getText().toString();
+            String getKategoriProduk = sKategoriProdukEdit.getSelectedItem().toString();
 
             if (getNamaProduk.isEmpty()) {
-                et_NamaProduk.setError("Nama produk harus diisi");
+                etNamaProdukEdit.setError("Nama produk harus diisi");
             } else if (getHargaBeli.isEmpty()) {
-                et_HargaBeli.setError("Harga beli harus diisi");
+                etHargaBeliEdit.setError("Harga beli harus diisi");
             } else if (getHargaJual.isEmpty()) {
-                et_HargaJual.setError("Harga jual harus diisi");
+                etHargaJualEdit.setError("Harga jual harus diisi");
             } else if (getLokasiProduk.isEmpty()) {
-                et_LokasiProduk.setError("Lokasi produk harus diisi");
+                etLokasiProdukEdit.setError("Lokasi produk harus diisi");
             } else if (getDeskripsiProduk.isEmpty()) {
-                et_DeskripsiProduk.setError("Deskripsi produk harus diisi");
+                etDeskripsiEdit.setError("Deskripsi produk harus diisi");
             } else if (getKategoriProduk.isEmpty()) {
-                TextView errorText = (TextView) sKategoriProduk.getSelectedView();
+                TextView errorText = (TextView) sKategoriProdukEdit.getSelectedView();
                 errorText.setError("");
                 errorText.setTextColor(Color.RED);
                 errorText.setText("Kategori produk harus dipilih");
@@ -128,38 +145,38 @@ public class UploadPageActivity extends AppCompatActivity {
                             filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    img_Produk.setBackground(null);
+                                    imgProdukEdit.setBackground(null);
                                     Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Uri> task) {
                                             String getFotoProduk = task.getResult().toString();
-                                            String produkKey = database.child("Users").child(userId).child("ProdukSaya").push().getKey();
 
-                                            database.child("Users").child(userId).child("ProdukSaya").child(produkKey).setValue(new KatalogModel(
+//                                            String produkKey = database.child("Users").child(userId).child("ProdukSaya").push().getKey();
+                                            database.child("Users").child(userId).child("ProdukSaya").child(key).setValue(new KatalogModel(
                                                     getNamaProduk, getNamaPenjual[0], getNoWhatsapp[0], getHargaBeli, getHargaJual, getLokasiProduk, getDeskripsiProduk, getKategoriProduk, getFotoProduk
                                             )).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
 
-                                                    database.child("SemuaProduk").child(produkKey).setValue(new KatalogModel(
+                                                    database.child("SemuaProduk").child(key).setValue(new KatalogModel(
                                                             getNamaProduk, getNamaPenjual[0], getNoWhatsapp[0], getHargaBeli, getHargaJual, getLokasiProduk, getDeskripsiProduk, getKategoriProduk, getFotoProduk
                                                     ));
 
-                                                    database.child("Kategori").child(getKategoriProduk).child(produkKey).setValue(new KatalogModel(
+                                                    database.child("Kategori").child(getKategoriProduk).child(key).setValue(new KatalogModel(
                                                             getNamaProduk, getNamaPenjual[0], getNoWhatsapp[0], getHargaBeli, getHargaJual, getLokasiProduk, getDeskripsiProduk, getKategoriProduk, getFotoProduk
                                                     ));
                                                 }
                                             });
-                                            Toast.makeText(UploadPageActivity.this, "Data produk berhasil ditambahkan ke aplikasi", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(EditActivity.this, "Data produk berhasil ditambahkan ke aplikasi", Toast.LENGTH_SHORT).show();
                                         }
                                     });
-                                    Toast.makeText(UploadPageActivity.this, "Seluruh data berhasil ditambahkan", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(UploadPageActivity.this, HomePageActivity.class));
+                                    Toast.makeText(EditActivity.this, "Seluruh data berhasil ditambahkan", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(EditActivity.this, HomePageActivity.class));
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(UploadPageActivity.this, "Harap mengisi seluruh data", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(EditActivity.this, "Harap mengisi seluruh data", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -173,32 +190,4 @@ public class UploadPageActivity extends AppCompatActivity {
             }
         });
     }
-
-    private TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String nama = et_NamaProduk.getText().toString().trim();
-            String hargaBeli = et_HargaBeli.getText().toString().trim();
-            String hargaJual = et_HargaJual.getText().toString().trim();
-            String lokasi = et_LokasiProduk.getText().toString().trim();
-            String deskripsi = et_DeskripsiProduk.getText().toString().trim();
-            boolean isFormValid = !nama.isEmpty() && !hargaBeli.isEmpty() && !hargaJual.isEmpty() && !lokasi.isEmpty() && !deskripsi.isEmpty();
-            btn_Simpan.setEnabled(isFormValid);
-
-            if (isFormValid) {
-                btn_Simpan.setBackgroundResource(R.drawable.btn_primary_bg);
-                btn_Simpan.setTextColor(getResources().getColor(R.color.white));
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
 }
