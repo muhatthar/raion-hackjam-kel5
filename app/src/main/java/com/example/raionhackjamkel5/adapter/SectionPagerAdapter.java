@@ -30,6 +30,5 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
 
     public void addFragment(Fragment fragment){
         fragmentList.add(fragment);
-
     }
 }

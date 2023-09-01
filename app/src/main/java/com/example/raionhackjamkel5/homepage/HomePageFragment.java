@@ -1,18 +1,29 @@
 package com.example.raionhackjamkel5.homepage;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.raionhackjamkel5.R;
 import com.example.raionhackjamkel5.adapter.SectionPagerAdapter;
+import com.example.raionhackjamkel5.kategori.DapurFragment;
+import com.example.raionhackjamkel5.kategori.ElektronikFragment;
+import com.example.raionhackjamkel5.kategori.HiasanFragment;
+import com.example.raionhackjamkel5.kategori.KamarFragment;
+import com.example.raionhackjamkel5.kategori.PerabotFragment;
 import com.example.raionhackjamkel5.model.KatalogModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -29,8 +40,8 @@ import com.google.firebase.database.ValueEventListener;
 public class HomePageFragment extends Fragment {
 
     View view;
-    ViewPager viewPager;
-    TabLayout tabLayout;
+    ImageButton btnAllKatalog, btnDapurKatalog, btnPerabotKatalog, btnKamarKatalog, btnElektronikKatalog, btnHiasanKatalog, btnSearch;
+    TextView tvAllKatalog, tvDapurKatalog, tvPerabotKatalog, tvKamarKatalog, tvElektronikKatalog, tvHiasanKatalog;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
     // TODO: Rename parameter arguments, choose names that match
@@ -79,110 +90,182 @@ public class HomePageFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
-        viewPager = view.findViewById(R.id.vpKatalog);
-        tabLayout = view.findViewById(R.id.tlKategori);
+        btnAllKatalog = view.findViewById(R.id.btn_allKatalog);
+        btnDapurKatalog = view.findViewById(R.id.btn_DapurKatalog);
+        btnPerabotKatalog = view.findViewById(R.id.btn_PerabotKatalog);
+        btnKamarKatalog = view.findViewById(R.id.btn_KamarKatalog);
+        btnElektronikKatalog = view.findViewById(R.id.btn_ElektronikKatalog);
+        btnHiasanKatalog = view.findViewById(R.id.btn_HiasanKatalog);
+        tvAllKatalog = view.findViewById(R.id.tv_AllKatalog);
+        tvDapurKatalog = view.findViewById(R.id.tv_DapurKatalog);
+        tvPerabotKatalog = view.findViewById(R.id.tv_PerabotKatalog);
+        tvHiasanKatalog = view.findViewById(R.id.tv_HiasanKatalog);
+        tvKamarKatalog = view.findViewById(R.id.tv_KamarKatalog);
+        tvElektronikKatalog = view.findViewById(R.id.tv_ElektronikKatalog);
+        btnSearch = view.findViewById(R.id.btnSearch);
 
-        for (int i = 0; i < 6; i++){
-            TabLayout.Tab tab = tabLayout.newTab().setText(getTextResourceId(i));
-            tab.setIcon(getIconResourceId(i));
-            tabLayout.addTab(tab);
-        }
+        btnSearch.setOnClickListener(v -> {
+            Intent search = new Intent(getContext(), HomeSearchActivity.class);
+            startActivity(search);
+        });
 
-        TabLayout.Tab firstTab = tabLayout.getTabAt(0);
-        if (firstTab != null) {
-            firstTab.setIcon(getSelectedIconResourceId(0));
-            firstTab.setText(getTextResourceId(0));
-        }
+        btnAllKatalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnAllKatalog.setImageResource(R.drawable.ic_popular_solid);
+                tvAllKatalog.setTextColor(Color.parseColor("#3C8918"));
+
+                btnPerabotKatalog.setImageResource(R.drawable.ic_perabot);
+                tvPerabotKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnDapurKatalog.setImageResource(R.drawable.ic_dapur);
+                tvDapurKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnHiasanKatalog.setImageResource(R.drawable.ic_hiasan);
+                tvHiasanKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnElektronikKatalog.setImageResource(R.drawable.ic_elektronik);
+                tvElektronikKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnKamarKatalog.setImageResource(R.drawable.ic_kamar);
+                tvKamarKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                replaceFragment(new KatalogFragment());
+            }
+        });
+
+        btnDapurKatalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnAllKatalog.setImageResource(R.drawable.ic_popular);
+                tvAllKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnPerabotKatalog.setImageResource(R.drawable.ic_perabot);
+                tvPerabotKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnDapurKatalog.setImageResource(R.drawable.ic_dapur_solid);
+                tvDapurKatalog.setTextColor(Color.parseColor("#3C8918"));
+
+                btnHiasanKatalog.setImageResource(R.drawable.ic_hiasan);
+                tvHiasanKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnElektronikKatalog.setImageResource(R.drawable.ic_elektronik);
+                tvElektronikKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnKamarKatalog.setImageResource(R.drawable.ic_kamar);
+                tvKamarKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                replaceFragment(new DapurFragment());
+            }
+        });
+
+        btnPerabotKatalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnAllKatalog.setImageResource(R.drawable.ic_popular);
+                tvAllKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnPerabotKatalog.setImageResource(R.drawable.ic_perabot_solid);
+                tvPerabotKatalog.setTextColor(Color.parseColor("#3C8918"));
+
+                btnDapurKatalog.setImageResource(R.drawable.ic_dapur);
+                tvDapurKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnHiasanKatalog.setImageResource(R.drawable.ic_hiasan);
+                tvHiasanKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnElektronikKatalog.setImageResource(R.drawable.ic_elektronik);
+                tvElektronikKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnKamarKatalog.setImageResource(R.drawable.ic_kamar);
+                tvKamarKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                replaceFragment(new PerabotFragment());
+            }
+        });
+
+        btnKamarKatalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnAllKatalog.setImageResource(R.drawable.ic_popular);
+                tvAllKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnPerabotKatalog.setImageResource(R.drawable.ic_perabot);
+                tvPerabotKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnDapurKatalog.setImageResource(R.drawable.ic_dapur);
+                tvDapurKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnHiasanKatalog.setImageResource(R.drawable.ic_hiasan);
+                tvHiasanKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnElektronikKatalog.setImageResource(R.drawable.ic_elektronik);
+                tvElektronikKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnKamarKatalog.setImageResource(R.drawable.ic_kamar_solid);
+                tvKamarKatalog.setTextColor(Color.parseColor("#3C8918"));
+
+                replaceFragment(new KamarFragment());
+            }
+        });
+
+        btnElektronikKatalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnAllKatalog.setImageResource(R.drawable.ic_popular);
+                tvAllKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnPerabotKatalog.setImageResource(R.drawable.ic_perabot);
+                tvPerabotKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnDapurKatalog.setImageResource(R.drawable.ic_dapur);
+                tvDapurKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnHiasanKatalog.setImageResource(R.drawable.ic_hiasan);
+                tvHiasanKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnElektronikKatalog.setImageResource(R.drawable.ic_elektronik_solid);
+                tvElektronikKatalog.setTextColor(Color.parseColor("#3C8918"));
+
+                btnKamarKatalog.setImageResource(R.drawable.ic_kamar);
+                tvKamarKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                replaceFragment(new ElektronikFragment());
+            }
+        });
+
+        btnHiasanKatalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnAllKatalog.setImageResource(R.drawable.ic_popular);
+                tvAllKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnPerabotKatalog.setImageResource(R.drawable.ic_perabot);
+                tvPerabotKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnDapurKatalog.setImageResource(R.drawable.ic_dapur);
+                tvDapurKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnHiasanKatalog.setImageResource(R.drawable.ic_hiasan_solid);
+                tvHiasanKatalog.setTextColor(Color.parseColor("#3C8918"));
+
+                btnElektronikKatalog.setImageResource(R.drawable.ic_elektronik);
+                tvElektronikKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                btnKamarKatalog.setImageResource(R.drawable.ic_kamar);
+                tvKamarKatalog.setTextColor(Color.parseColor("#A6A1A1"));
+
+                replaceFragment(new HiasanFragment());
+            }
+        });
 
         return view;
     }
 
-    private int getIconResourceId(int position) {
-        switch (position){
-            case 0:
-                return R.drawable.ic_popular;
-            case 1:
-                return R.drawable.ic_dapur;
-            case 2:
-                return R.drawable.ic_perabot;
-            case 3:
-                return R.drawable.ic_kamar;
-            case 4:
-                return R.drawable.ic_elektronik;
-            case 5:
-                return R.drawable.ic_hiasan;
-            default:
-                return R.drawable.ic_popular;
-        }
-    }
-
-    private int getSelectedIconResourceId(int position) {
-        switch (position){
-            case 0:
-                return R.drawable.ic_popular_solid;
-            case 1:
-                return R.drawable.ic_dapur_solid;
-            case 2:
-                return R.drawable.ic_perabot_solid;
-            case 3:
-                return R.drawable.ic_kamar_solid;
-            case 4:
-                return R.drawable.ic_elektronik_solid;
-            case 5:
-                return R.drawable.ic_hiasan_solid;
-            default:
-                return R.drawable.ic_popular_solid;
-        }
-    }
-
-    private String getTextResourceId(int position) {
-        switch (position){
-            case 0:
-                return "Popular";
-            case 1:
-                return "Dapur";
-            case 2:
-                return "Perabot";
-            case 3:
-                return "Kamar";
-            case 4:
-                return "Elektronik";
-            case 5:
-                return "Hiasan";
-            default:
-                return "Popular";
-        }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setUpViewPager(viewPager);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tab.setIcon(getSelectedIconResourceId(tab.getPosition()));
-                tabLayout.getTabAt(tab.getPosition()).setIcon(getSelectedIconResourceId(tab.getPosition()));
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                tab.setIcon(getIconResourceId(tab.getPosition()));
-                tabLayout.getTabAt(tab.getPosition()).setIcon(getIconResourceId(tab.getPosition()));
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-    }
-
-    private void setUpViewPager(ViewPager viewPager){
-        SectionPagerAdapter adapter = new SectionPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new KatalogFragment());
-
-        viewPager.setAdapter(adapter);
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameKatalog, fragment);
+        fragmentTransaction.commit();
     }
 }

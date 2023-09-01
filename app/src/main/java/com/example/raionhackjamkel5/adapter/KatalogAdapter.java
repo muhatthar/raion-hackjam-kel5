@@ -2,6 +2,7 @@ package com.example.raionhackjamkel5.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -11,16 +12,27 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.raionhackjamkel5.R;
 import com.example.raionhackjamkel5.detail.DetailProdukActivity;
+import com.example.raionhackjamkel5.model.BookmarkModel;
 import com.example.raionhackjamkel5.model.KatalogModel;
+import com.example.raionhackjamkel5.model.UserModel;
+import com.example.raionhackjamkel5.profil.BookmarkPageActivity;
+import com.example.raionhackjamkel5.upload.EditActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -49,13 +61,72 @@ public class KatalogAdapter extends RecyclerView.Adapter<KatalogAdapter.KatalogV
 
     @Override
     public void onBindViewHolder(@NonNull KatalogAdapter.KatalogViewHolder holder, int position) {
+//        katalogItems = getItemAtPosition(position);
         KatalogModel katalogData = katalogItems.get(position);
 
         holder.tv_NamaProduk.setText(katalogData.getNamaProduk());
         holder.tv_HargaProduk.setText("Rp " + katalogData.getHargaJual());
         holder.tv_KotaProduk.setText(katalogData.getLokasiProduk());
-
         Picasso.get().load(katalogData.getFotoProduk()).into(holder.iv_FotoProduk);
+
+        Intent sendKey = new Intent(context, EditActivity.class);
+        sendKey.putExtra("keyKatalog", katalogData.getKey());
+
+        holder.btn_Bookmark.setOnClickListener(v -> {
+            String getNamaProduk = katalogData.getNamaProduk();
+            String getHargaBeli = katalogData.getHargaBeli();
+            String getHargaJual = katalogData.getHargaJual();
+            String getLokasiProduk = katalogData.getLokasiProduk();
+            String getDeskripsiProduk = katalogData.getDeskripsiProduk();
+            String getKategoriProduk = katalogData.getKategoriProduk();
+            String getFotoProduk = katalogData.getFotoProduk();
+            final String[] getNamaPenjual = new String[1];
+            final String[] getNoWhatsapp = new String[1];
+
+            holder.btn_Bookmark.setImageResource(R.drawable.ic_bookmark_click);
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            database.child("Users").child(userId).child("UserData").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        UserModel userModel = snapshot.getValue(UserModel.class);
+                        userModel.setKey(snapshot.getKey());
+                        getNamaPenjual[0] = userModel.getNama().toString();
+                        getNoWhatsapp[0] = userModel.getWhatsapp().toString();
+
+                        database.child("Users").child(userId).child("Bookmark").child(katalogData.getKey()).setValue(new KatalogModel(
+                                getNamaProduk, getNamaPenjual[0], getNoWhatsapp[0], getHargaBeli, getHargaJual, getLokasiProduk, getDeskripsiProduk, getKategoriProduk, getFotoProduk)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(context, "Produk berhasil ditambahkan ke bookmark Anda", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(context, "Produk gagal ditambahkan ke bookmark Anda", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            Intent bookmarkProduk = new Intent(context, BookmarkPageActivity.class);
+            bookmarkProduk.putExtra("key", katalogData.getKey());
+            bookmarkProduk.putExtra("nama", katalogData.getNamaProduk());
+            bookmarkProduk.putExtra("hargaBeli", katalogData.getHargaBeli());
+            bookmarkProduk.putExtra("hargaJual", katalogData.getHargaJual());
+            bookmarkProduk.putExtra("kota", katalogData.getLokasiProduk());
+            bookmarkProduk.putExtra("deskripsi", katalogData.getDeskripsiProduk());
+            bookmarkProduk.putExtra("fotoProduk", katalogData.getFotoProduk());
+            bookmarkProduk.putExtra("namaPenjual", katalogData.getNamaPenjual());
+            bookmarkProduk.putExtra("whatsappPenjual", katalogData.getNoWhatsapp());
+        });
 
         holder.iv_FotoProduk.setOnClickListener(v -> {
             Intent detailProduk = new Intent(context, DetailProdukActivity.class);
@@ -78,6 +149,7 @@ public class KatalogAdapter extends RecyclerView.Adapter<KatalogAdapter.KatalogV
         return katalogItems.size();
     }
 
+
     public class KatalogViewHolder extends RecyclerView.ViewHolder {
         ShapeableImageView iv_FotoProduk;
         ImageButton btn_Bookmark;
@@ -92,6 +164,11 @@ public class KatalogAdapter extends RecyclerView.Adapter<KatalogAdapter.KatalogV
             tv_HargaProduk = itemView.findViewById(R.id.tvHargaProduk);
             tv_KotaProduk = itemView.findViewById(R.id.tvKotaProduk);
         }
+    }
+
+    public void filterList(List<KatalogModel> filterKatalog){
+        katalogItems = filterKatalog;
+        notifyDataSetChanged();
     }
 }
 

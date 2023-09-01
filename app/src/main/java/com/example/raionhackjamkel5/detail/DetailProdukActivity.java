@@ -30,5 +30,23 @@ public class DetailProdukActivity extends AppCompatActivity {
 
         DetailAdapter adapter = new DetailAdapter(this, intent);
         vp_Detail.setAdapter(adapter);
+
+        btn_HubungiPenjual.setOnClickListener(v -> {
+            Intent getData = getIntent();
+            String nomorWA = getData.getStringExtra("whatsappPenjual");
+            String pesan = "Halo, saya tertarik dengan produk Anda yang bernama " + getData.getStringExtra("nama");
+
+            if (nomorWA.startsWith("0")) {
+                nomorWA = "62" + nomorWA.substring(1);
+            }
+
+            Intent whatsapp = new Intent(Intent.ACTION_SEND);
+            whatsapp.setType("text/plian");
+            whatsapp.putExtra(Intent.EXTRA_TEXT, pesan);
+            whatsapp.putExtra("jid", nomorWA + "@s.whatsapp.net");
+            whatsapp.setPackage("com.whatsapp");
+
+            startActivity(whatsapp);
+        });
     }
 }

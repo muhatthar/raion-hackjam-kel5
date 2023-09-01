@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.raionhackjamkel5.R;
 import com.example.raionhackjamkel5.homepage.HomePageActivity;
+import com.example.raionhackjamkel5.model.UserModel;
+import com.example.raionhackjamkel5.profil.ProfilePageFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -27,6 +29,7 @@ public class SignInActivity extends AppCompatActivity {
     private EditText et_Email, et_Password;
     private Button btn_SignIn, btn_SignUp;
     private FirebaseAuth mAuth;
+    private UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
