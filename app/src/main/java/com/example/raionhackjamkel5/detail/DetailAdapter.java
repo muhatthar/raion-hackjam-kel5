@@ -1,11 +1,13 @@
 package com.example.raionhackjamkel5.detail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.raionhackjamkel5.R;
+import com.example.raionhackjamkel5.homepage.HomePageActivity;
 import com.example.raionhackjamkel5.model.KatalogModel;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +36,7 @@ import java.util.List;
 public class DetailAdapter extends PagerAdapter {
 
     private boolean isExpand = false;
+    private ImageButton btnBack;
     private ImageView iv_FotoProdukDetail;
     private TextView tv_NamaProdukDetail, tv_HargaJualDetail, tv_KotaProdukDetail, tv_HargaBeliDetail, tv_DeskripsiDetail, tv_NamaPenjual;
     private AppCompatButton btn_ReadMore;
@@ -78,6 +82,15 @@ public class DetailAdapter extends PagerAdapter {
         tv_NamaPenjual = v.findViewById(R.id.tvNamaPenjual);
         btn_ReadMore = v.findViewById(R.id.btnReadMore);
         iv_ProfilPenjual = v.findViewById(R.id.ivProfilPenjual);
+        btnBack = v.findViewById(R.id.btnBackDetail);
+
+        btnBack.setOnClickListener(view -> {
+            Intent homepage = new Intent(mcontext, HomePageActivity.class);
+            mcontext.startActivity(homepage);
+            if (mcontext instanceof Activity){
+                ((Activity) mcontext).finish();
+            }
+        });
 
         String namaProduk = mDataIntent.getStringExtra("nama");
         String hargaBeli = mDataIntent.getStringExtra("hargaBeli");
