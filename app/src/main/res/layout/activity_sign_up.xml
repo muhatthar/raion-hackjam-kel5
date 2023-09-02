@@ -69,7 +69,7 @@
                 android:background="@drawable/form_login_bg"
                 android:paddingVertical="9dp"
                 android:paddingHorizontal="23dp"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="24dp">
 
                 <EditText
                     android:id="@+id/etRNama"
@@ -101,7 +101,7 @@
                 android:background="@drawable/form_login_bg"
                 android:paddingVertical="9dp"
                 android:paddingHorizontal="23dp"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="24dp">
 
                 <EditText
                     android:id="@+id/etREmail"
@@ -133,7 +133,7 @@
                 android:background="@drawable/form_login_bg"
                 android:paddingVertical="9dp"
                 android:paddingHorizontal="23dp"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="24dp">
 
                 <EditText
                     android:id="@+id/etRWhatsapp"
@@ -165,7 +165,7 @@
                 android:background="@drawable/form_login_bg"
                 android:paddingVertical="9dp"
                 android:paddingHorizontal="23dp"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="24dp">
 
                 <EditText
                     android:id="@+id/etRKotaAsal"
@@ -184,7 +184,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Password"
+                android:text="Kata Sandi"
                 android:fontFamily="@font/poppins_bold"
                 android:textSize="18sp"
                 android:textColor="@color/black"
@@ -193,26 +193,72 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/form_login_bg"
-                android:paddingVertical="9dp"
+                android:orientation="horizontal"
                 android:paddingHorizontal="23dp"
-                android:layout_marginBottom="44dp">
+                android:paddingVertical="9dp">
 
                 <EditText
-                    android:id="@+id/etRPassword"
+                    android:id="@+id/etPasswordRegistrasi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@android:color/transparent"
+                    android:fontFamily="@font/poppins_regular"
                     android:hint="min. 8 karakter"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
                     android:textColorHint="#CFCFCF"
                     android:textSize="18sp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/black"
-                    android:layout_weight="1"
-                    android:inputType="textPassword" />
+                    android:drawableEnd="@drawable/ic_toggle_invisible"/>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Konfirmasi Kata Sandi"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="7dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/form_login_bg"
+                android:orientation="horizontal"
+                android:paddingHorizontal="23dp"
+                android:paddingVertical="9dp">
+
+                <EditText
+                    android:id="@+id/etConfirmPasswordRegistrasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="min. 8 karakter"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textColorHint="#CFCFCF"
+                    android:textSize="18sp"
+                    android:drawableEnd="@drawable/ic_toggle_invisible"/>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_Agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="48dp"
+                android:buttonTint="#4E942D"
+                android:text="@string/checkbox_text"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="13sp"
+                android:textColor="#CFCFCF"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnRSignUp"
@@ -227,7 +273,7 @@
                 android:textSize="18sp"
                 android:layout_marginBottom="7dp"/>
 
-            <TextView
+             <TextView
                 android:id="@+id/tvSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

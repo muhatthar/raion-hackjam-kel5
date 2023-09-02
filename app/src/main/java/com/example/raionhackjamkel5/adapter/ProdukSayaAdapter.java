@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
     public class ProdukSayaAdapter extends RecyclerView.Adapter<ProdukSayaAdapter.ProdukSayaViewHolder> {
@@ -65,7 +66,7 @@ import java.util.List;
         KatalogModel produkData = produkItems.get(position);
 
         holder.tv_NamaProduk.setText(produkData.getNamaProduk());
-        holder.tv_HargaProduk.setText("Rp " + produkData.getHargaJual());
+        holder.tv_HargaProduk.setText("Rp " + formatNumberCurrency(produkData.getHargaJual()));
         holder.tv_KotaProduk.setText(produkData.getLokasiProduk());
         Picasso.get().load(produkData.getFotoProduk()).into(holder.iv_FotoProduk);
 
@@ -152,5 +153,15 @@ import java.util.List;
             tv_HargaProduk = itemView.findViewById(R.id.tvHargaProdukSaya);
             tv_KotaProduk = itemView.findViewById(R.id.tvKotaProdukSaya);
         }
+    }
+
+    private String formatNumberCurrency(String number) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return formatter.format(Double.parseDouble(number));
+    }
+
+    public void filterList(List<KatalogModel> filterKatalog){
+        produkItems = filterKatalog;
+        notifyDataSetChanged();
     }
 }

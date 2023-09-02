@@ -2,13 +2,19 @@ package com.example.raionhackjamkel5.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.TypedValue;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -30,6 +36,7 @@ public class SignInActivity extends AppCompatActivity {
     private Button btn_SignIn, btn_SignUp;
     private FirebaseAuth mAuth;
     private UserModel userModel;
+    private boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +50,45 @@ public class SignInActivity extends AppCompatActivity {
         btn_SignIn = findViewById(R.id.btnSignIn);
         btn_SignUp = findViewById(R.id.btnSignUp);
 
+        Typeface customFont = ResourcesCompat.getFont(this, R.font.poppins_regular);
+
         mAuth = FirebaseAuth.getInstance();
 
         et_Email.addTextChangedListener(textWatcher);
         et_Password.addTextChangedListener(textWatcher);
+
+        et_Password.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_RIGHT = 2;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (et_Password.getRight() - et_Password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        isPasswordVisible = !isPasswordVisible;
+
+                        if (isPasswordVisible) {
+                            et_Password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                            et_Password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_toggle_visible, 0);
+                            et_Password.setTypeface(customFont);
+                            et_Password.setTextColor(getColor(R.color.black));
+                            et_Password.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                        } else {
+                            et_Password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                            et_Password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_toggle_invisible, 0);
+                            et_Password.setTypeface(customFont);
+                            et_Password.setTextColor(getColor(R.color.black));
+                            et_Password.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                        }
+
+                        // Memindahkan kursor ke akhir teks
+                        et_Password.setSelection(et_Password.length());
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         btn_SignUp.setOnClickListener(v -> {
             Intent signup = new Intent (SignInActivity.this, SignUpActivity.class);
