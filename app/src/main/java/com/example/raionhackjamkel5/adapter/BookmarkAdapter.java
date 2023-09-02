@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder> {
@@ -51,7 +52,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
         KatalogModel katalogData = bookmarkItems.get(position);
 
         holder.tv_NamaProduk.setText(katalogData.getNamaProduk());
-        holder.tv_HargaProduk.setText("Rp " + katalogData.getHargaJual());
+        holder.tv_HargaProduk.setText("Rp " + formatNumberCurrency(katalogData.getHargaJual()));
         holder.tv_KotaProduk.setText(katalogData.getLokasiProduk());
         Picasso.get().load(katalogData.getFotoProduk()).into(holder.iv_FotoProduk);
 
@@ -109,6 +110,12 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
             tv_HargaProduk = itemView.findViewById(R.id.tvHargaProdukBook);
             tv_KotaProduk = itemView.findViewById(R.id.tvKotaProdukBook);
         }
+    }
+
+    private String formatNumberCurrency(String number) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return formatter.format(Double.parseDouble(number));
+
     }
 
     public void filterList(List<KatalogModel> filterKatalog){

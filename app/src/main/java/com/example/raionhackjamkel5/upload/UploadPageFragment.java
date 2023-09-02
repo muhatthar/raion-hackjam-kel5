@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.example.raionhackjamkel5.R;
 import com.example.raionhackjamkel5.adapter.KatalogAdapter;
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +41,8 @@ public class UploadPageFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     ArrayList<KatalogModel> produkItems;
     ProdukSayaAdapter produkSayaAdapter;
+    private List<KatalogModel> filterKatalog;
+    SearchView sv_ProdukSaya;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,12 +93,56 @@ public class UploadPageFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rvProdukSaya);
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
+        sv_ProdukSaya = view.findViewById(R.id.svProdukSaya);
+
+        sv_ProdukSaya.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterProdukSayaPage(newText);
+                return true;
+            }
+        });
 
         showData();
         return view;
     }
 
+    private void filterProdukSayaPage(String filterText) {
+        filterKatalog.clear();
+
+        if (filterText.isEmpty()) {
+            filterKatalog.addAll(produkItems);
+        } else {
+            String filterPattern = filterText.toLowerCase().trim();
+
+            for (KatalogModel katalogModel : produkItems){
+                if (katalogModel.getNamaProduk().toLowerCase().contains(filterPattern)){
+                    filterKatalog.add(katalogModel);
+                } else if (katalogModel.getLokasiProduk().toLowerCase().contains(filterPattern)){
+                    filterKatalog.add(katalogModel);
+                } else if (katalogModel.getKategoriProduk().toLowerCase().contains(filterPattern)){
+                    filterKatalog.add(katalogModel);
+                } else if (katalogModel.getNamaPenjual().toLowerCase().contains(filterPattern)){
+                    filterKatalog.add(katalogModel);
+                }
+            }
+        }
+
+        produkSayaAdapter.filterList(filterKatalog);
+    }
+
     private void showData() {
+        filterKatalog = new ArrayList<>();
+
+        if (produkItems != null){
+            filterKatalog.addAll(produkItems);
+        }
+
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         database.child("Users").child(userId).child("ProdukSaya").addValueEventListener(new ValueEventListener() {

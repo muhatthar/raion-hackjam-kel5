@@ -104,6 +104,8 @@ public class HomePageFragment extends Fragment {
         tvElektronikKatalog = view.findViewById(R.id.tv_ElektronikKatalog);
         btnSearch = view.findViewById(R.id.btnSearch);
 
+        replaceFragment(new KatalogFragment());
+
         btnSearch.setOnClickListener(v -> {
             Intent search = new Intent(getContext(), HomeSearchActivity.class);
             startActivity(search);

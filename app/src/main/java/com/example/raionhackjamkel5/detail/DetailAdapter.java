@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,8 +90,8 @@ public class DetailAdapter extends PagerAdapter {
         Picasso.get().load(fotoProduk).into(iv_FotoProdukDetail);
 
         tv_NamaProdukDetail.setText(namaProduk);
-        tv_HargaJualDetail.setText(hargaJual);
-        tv_HargaBeliDetail.setText(hargaBeli);
+        tv_HargaJualDetail.setText("Rp " + formatNumberCurrency(hargaJual));
+        tv_HargaBeliDetail.setText("Rp " + formatNumberCurrency(hargaBeli));
         tv_KotaProdukDetail.setText(kota);
         tv_DeskripsiDetail.setText(deskripsi);
         tv_NamaPenjual.setText(namaPenjual);
@@ -113,6 +114,11 @@ public class DetailAdapter extends PagerAdapter {
         container.addView(v);
 
         return v;
+    }
+
+    private String formatNumberCurrency(String number) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return formatter.format(Double.parseDouble(number));
     }
 
     private void toggleTextView(){

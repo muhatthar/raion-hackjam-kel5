@@ -64,14 +64,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="7dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Password"
+                android:text="Kata Sandi"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="29dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/form_login_bg"
                 android:orientation="horizontal"
                 android:paddingHorizontal="23dp"
@@ -88,9 +88,20 @@
                     android:inputType="textPassword"
                     android:textColor="@color/black"
                     android:textColorHint="#CFCFCF"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:drawableEnd="@drawable/ic_toggle_invisible"/>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="48dp"
+                android:text="@string/lupa_sandi"
+                android:textAlignment="textEnd"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="15sp"
+                android:textColor="#A6A1A1"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSignIn"

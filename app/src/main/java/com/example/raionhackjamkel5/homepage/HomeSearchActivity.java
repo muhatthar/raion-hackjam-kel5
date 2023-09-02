@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.SearchView;
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,6 +44,12 @@ public class HomeSearchActivity extends AppCompatActivity {
         btn_Back = findViewById(R.id.btnPBackSearch);
         sv_HomeSearch = findViewById(R.id.svHomeSearch);
         database = FirebaseDatabase.getInstance().getReference();
+
+        btn_Back.setOnClickListener(v -> {
+            Intent backHomePage = new Intent(HomeSearchActivity.this, HomePageActivity.class);
+            startActivity(backHomePage);
+            finish();
+        });
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         rv_KatalogSearch.setLayoutManager(layoutManager);
@@ -80,7 +88,6 @@ public class HomeSearchActivity extends AppCompatActivity {
                         katalogModels.add(katalog);
                     }
                 }
-
                 katalogAdapter = new KatalogAdapter(katalogModels, HomeSearchActivity.this);
                 rv_KatalogSearch.setAdapter(katalogAdapter);
             }

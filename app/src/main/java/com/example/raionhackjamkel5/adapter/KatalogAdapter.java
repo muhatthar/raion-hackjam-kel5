@@ -65,7 +65,7 @@ public class KatalogAdapter extends RecyclerView.Adapter<KatalogAdapter.KatalogV
         KatalogModel katalogData = katalogItems.get(position);
 
         holder.tv_NamaProduk.setText(katalogData.getNamaProduk());
-        holder.tv_HargaProduk.setText("Rp " + katalogData.getHargaJual());
+        holder.tv_HargaProduk.setText("Rp " + formatNumberCurrency(katalogData.getHargaJual()));
         holder.tv_KotaProduk.setText(katalogData.getLokasiProduk());
         Picasso.get().load(katalogData.getFotoProduk()).into(holder.iv_FotoProduk);
 
@@ -142,6 +142,11 @@ public class KatalogAdapter extends RecyclerView.Adapter<KatalogAdapter.KatalogV
 
             context.startActivity(detailProduk);
         });
+    }
+
+    private String formatNumberCurrency(String number) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return formatter.format(Double.parseDouble(number));
     }
 
     @Override

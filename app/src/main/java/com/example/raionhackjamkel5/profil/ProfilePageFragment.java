@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.raionhackjamkel5.R;
+import com.example.raionhackjamkel5.login.SignInActivity;
 import com.example.raionhackjamkel5.model.UserModel;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -94,6 +95,13 @@ public class ProfilePageFragment extends Fragment {
         btnNextBookmark = view.findViewById(R.id.btn_NextBookmark);
         btnNextPengaturanAkun = view.findViewById(R.id.btn_NextPengaturanAkun);
         user = mAuth.getCurrentUser();
+
+        btnLogout.setOnClickListener(v -> {
+            mAuth.signOut();
+            Intent logout = new Intent(getContext(), SignInActivity.class);
+            logout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(logout);
+        });
 
         btnNextPengaturanAkun.setOnClickListener(v -> {
             Intent pengaturanAkun = new Intent(getContext(), PengaturanAkunPage.class);

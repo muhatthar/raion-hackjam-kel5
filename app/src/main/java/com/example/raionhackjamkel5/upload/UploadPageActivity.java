@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class UploadPageActivity extends AppCompatActivity {
 
     private static final int galleryCode = 1;
     private EditText et_NamaProduk, et_HargaBeli, et_HargaJual, et_LokasiProduk, et_DeskripsiProduk;
+    private ImageButton btn_Back;
     private Spinner sKategoriProduk;
     private ShapeableImageView img_Produk;
     private AppCompatButton btn_Simpan;
@@ -62,6 +64,7 @@ public class UploadPageActivity extends AppCompatActivity {
         et_DeskripsiProduk = findViewById(R.id.etDeskripsiProduk);
         sKategoriProduk = findViewById(R.id.sKategoriProduk);
         img_Produk = findViewById(R.id.imgProduk);
+        btn_Back = findViewById(R.id.btnBack);
         btn_Simpan = findViewById(R.id.btnSimpanProduk);
 
         et_NamaProduk.addTextChangedListener(textWatcher);
@@ -71,6 +74,12 @@ public class UploadPageActivity extends AppCompatActivity {
         et_DeskripsiProduk.addTextChangedListener(textWatcher);
 
         mStorage = FirebaseStorage.getInstance();
+
+        btn_Back.setOnClickListener(v -> {
+            Intent backUploadFragment = new Intent(UploadPageActivity.this, HomePageActivity.class);
+            startActivity(backUploadFragment);
+            finish();
+        });
 
         img_Produk.setOnClickListener(v -> {
             Intent addImg = new Intent(Intent.ACTION_GET_CONTENT);
