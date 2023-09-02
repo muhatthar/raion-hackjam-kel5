@@ -7,10 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.raionhackjamkel5.R;
@@ -33,6 +37,8 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfilePageFragment extends Fragment {
 
     View view;
+    LinearLayout dataUser;
+    CardView cvPengaturan, cvBookmark, cvFaq;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
     ShapeableImageView ivProfil;
     TextView tvNamaUser, tvEmailUser, tvJumlahBook;
@@ -94,7 +100,23 @@ public class ProfilePageFragment extends Fragment {
         btnLogout = view.findViewById(R.id.btn_Logout);
         btnNextBookmark = view.findViewById(R.id.btn_NextBookmark);
         btnNextPengaturanAkun = view.findViewById(R.id.btn_NextPengaturanAkun);
+        dataUser = view.findViewById(R.id.dataUserLayout);
+        cvPengaturan = view.findViewById(R.id.cvPengaturan);
+        cvBookmark = view.findViewById(R.id.cvBookmark);
+        cvFaq = view.findViewById(R.id.cvFaq);
         user = mAuth.getCurrentUser();
+
+        dataUser.setAlpha(0f);
+        cvPengaturan.setAlpha(0f);
+        cvBookmark.setAlpha(0f);
+        cvFaq.setAlpha(0f);
+        btnLogout.setAlpha(0f);
+
+        dataUser.animate().alpha(1f).translationX(0).setDuration(500).setStartDelay(200);
+        cvPengaturan.animate().alpha(1f).translationX(0).setDuration(500).setStartDelay(400);
+        cvBookmark.animate().alpha(1f).translationX(0).setDuration(500).setStartDelay(600);
+        cvFaq.animate().alpha(1f).translationX(0).setDuration(500).setStartDelay(800);
+        btnLogout.animate().alpha(1f).translationX(0).setDuration(500).setStartDelay(1000);
 
         btnLogout.setOnClickListener(v -> {
             mAuth.signOut();

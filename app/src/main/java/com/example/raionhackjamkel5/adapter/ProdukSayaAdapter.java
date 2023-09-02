@@ -34,6 +34,8 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -47,6 +49,7 @@ import java.util.List;
     private List<PerabotModel> perabotItems;
     private Context context;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
     public ProdukSayaAdapter(List<KatalogModel> produkItems, Context context) {
         this.produkItems = produkItems;
@@ -103,25 +106,32 @@ import java.util.List;
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    database.child("Users").child(userId).child("ProdukSaya").child(produkData.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            database.child("SemuaProduk").child(produkData.getKey()).removeValue();
-                            database.child("Kategori").child(produkData.getKategoriProduk()).child(produkData.getKey()).removeValue();
+                    if (produkData.getFotoProduk()!= null) {
+                        StorageReference storageRef = mStorage.getReferenceFromUrl(produkData.getFotoProduk());
+                        storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                database.child("Users").child(userId).child("ProdukSaya").child(produkData.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        database.child("SemuaProduk").child(produkData.getKey()).removeValue();
+                                        database.child("Kategori").child(produkData.getKategoriProduk()).child(produkData.getKey()).removeValue();
 
-                            Toast.makeText(context, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
-                            produkItems.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, getItemCount());
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context, "Data gagal dihapus", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
+                                        Toast.makeText(context, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+                                        produkItems.remove(position);
+                                        notifyItemRemoved(position);
+                                        notifyItemRangeChanged(position, getItemCount());
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(context, "Data gagal dihapus", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        });
+                    }
                     popup.dismiss();
                 }
             });
