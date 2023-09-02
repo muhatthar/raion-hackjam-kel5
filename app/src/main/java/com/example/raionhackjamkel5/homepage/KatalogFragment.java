@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -110,8 +111,6 @@ public class KatalogFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 katalogItems = new ArrayList<>();
-
-
             }
         });
     }
