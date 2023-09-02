@@ -125,12 +125,12 @@ public class ProfilePageFragment extends Fragment {
             startActivity(logout);
         });
 
-        btnNextPengaturanAkun.setOnClickListener(v -> {
+        cvPengaturan.setOnClickListener(v -> {
             Intent pengaturanAkun = new Intent(getContext(), PengaturanAkunPage.class);
             startActivity(pengaturanAkun);
         });
 
-        btnNextBookmark.setOnClickListener(v -> {
+        cvBookmark.setOnClickListener(v -> {
             Intent bookmark = new Intent(getContext(), BookmarkPageActivity.class);
             startActivity(bookmark);
         });

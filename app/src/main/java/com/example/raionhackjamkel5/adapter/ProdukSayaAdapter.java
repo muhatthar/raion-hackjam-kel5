@@ -86,6 +86,21 @@ import java.util.List;
             context.startActivity(edit);
         });
 
+        holder.iv_FotoProduk.setOnClickListener(v -> {
+            Intent detailProduk = new Intent(context, DetailProdukActivity.class);
+            detailProduk.putExtra("key", produkData.getKey());
+            detailProduk.putExtra("nama", produkData.getNamaProduk());
+            detailProduk.putExtra("hargaBeli", produkData.getHargaBeli());
+            detailProduk.putExtra("hargaJual", produkData.getHargaJual());
+            detailProduk.putExtra("kota", produkData.getLokasiProduk());
+            detailProduk.putExtra("deskripsi", produkData.getDeskripsiProduk());
+            detailProduk.putExtra("fotoProduk", produkData.getFotoProduk());
+            detailProduk.putExtra("namaPenjual", produkData.getNamaPenjual());
+            detailProduk.putExtra("whatsappPenjual", produkData.getNoWhatsapp());
+
+            context.startActivity(detailProduk);
+        });
+
         holder.btn_Delete.setOnClickListener(v -> {
             Dialog popup = new Dialog(context);
             popup.setContentView(R.layout.delete_popup);
@@ -106,7 +121,7 @@ import java.util.List;
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (produkData.getFotoProduk()!= null) {
+                    if (produkData.getFotoProduk() != null) {
                         StorageReference storageRef = mStorage.getReferenceFromUrl(produkData.getFotoProduk());
                         storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

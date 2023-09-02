@@ -12,6 +12,7 @@ import com.example.raionhackjamkel5.homepage.HomePageActivity;
 public class PengaturanAkunPage extends AppCompatActivity {
 
     ImageButton btn_Back;
+    int selectedTab = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +23,17 @@ public class PengaturanAkunPage extends AppCompatActivity {
 
         btn_Back.setOnClickListener(v -> {
             Intent backProfil = new Intent(PengaturanAkunPage.this, HomePageActivity.class);
+            backProfil.putExtra("selectedTab", selectedTab);
             startActivity(backProfil);
             finish();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent backProfil = new Intent(PengaturanAkunPage.this, HomePageActivity.class);
+        backProfil.putExtra("selectedTab", selectedTab);
+        startActivity(backProfil);
+        finish();
     }
 }

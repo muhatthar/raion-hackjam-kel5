@@ -5,8 +5,8 @@
     <string name="onboard_title2">Eksplorasi Hemat</string>
     <string name="lupa_sandi"><u>Lupa sandi?</u></string>
     <string name="checkbox_text">Dengan mendaftar, Anda menyetujui <font color="#4E942D">Syarat &amp; Kebijakan Privasi</font> kami</string>
-    <string name="onboard_desc1">Selamat datang di Second Goods! \nDapatkan pengalaman berbelanja unik \nsambil mendukung siklus berkelanjutan. Yuk \nmengenal bagaimana Second Goods bisa \nmenjadi teman baikmu.</string>
-    <string name="onboard_desc2">Bersiaplah untuk menemukan beragam \nbarang berkualitas yang masih layak pakai, \ndengan harga yang lebih terjangkau. Mari \nkita mulai perjalanan hemat Anda.</string>
+    <string name="onboard_desc1">Selamat datang di Second Goods! \nDapatkan pengalaman berbelanja unik sambil mendukung siklus berkelanjutan. Yuk mengenal bagaimana Second Goods bisa menjadi teman baikmu.</string>
+    <string name="onboard_desc2">Bersiaplah untuk menemukan beragam barang berkualitas yang masih layak pakai, dengan harga yang lebih terjangkau. Mari kita mulai perjalanan hemat Anda.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

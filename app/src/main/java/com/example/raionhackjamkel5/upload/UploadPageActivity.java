@@ -20,6 +20,7 @@ import com.example.raionhackjamkel5.R;
 import com.example.raionhackjamkel5.homepage.HomePageActivity;
 import com.example.raionhackjamkel5.model.KatalogModel;
 import com.example.raionhackjamkel5.model.UserModel;
+import com.example.raionhackjamkel5.profil.PengaturanAkunPage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,6 +44,7 @@ import java.util.Locale;
 public class UploadPageActivity extends AppCompatActivity {
 
     private static final int galleryCode = 1;
+    int selectedTab = 2;
     private EditText et_NamaProduk, et_HargaBeli, et_HargaJual, et_LokasiProduk, et_DeskripsiProduk;
     private ImageButton btn_Back;
     private Spinner sKategoriProduk;
@@ -76,8 +78,9 @@ public class UploadPageActivity extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance();
 
         btn_Back.setOnClickListener(v -> {
-            Intent backUploadFragment = new Intent(UploadPageActivity.this, HomePageActivity.class);
-            startActivity(backUploadFragment);
+            Intent backProfil = new Intent(UploadPageActivity.this, HomePageActivity.class);
+            backProfil.putExtra("selectedTab", selectedTab);
+            startActivity(backProfil);
             finish();
         });
 
@@ -86,6 +89,14 @@ public class UploadPageActivity extends AppCompatActivity {
             addImg.setType("image/*");
             startActivityForResult(addImg, galleryCode);
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent backProfil = new Intent(UploadPageActivity.this, HomePageActivity.class);
+        backProfil.putExtra("selectedTab", selectedTab);
+        startActivity(backProfil);
+        finish();
     }
 
     @Override
@@ -133,7 +144,10 @@ public class UploadPageActivity extends AppCompatActivity {
                             getNamaPenjual[0] = userModel.getNama().toString();
                             getNoWhatsapp[0] = userModel.getWhatsapp().toString();
 
-                            StorageReference filePath = mStorage.getReference().child("imageProduk").child(imageUri.getLastPathSegment());
+                            String timestamp = String.valueOf(System.currentTimeMillis());
+                            String fileName = "image_" + timestamp + ".jpg";
+
+                            StorageReference filePath = mStorage.getReference().child("imageProduk").child(fileName);
                             filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

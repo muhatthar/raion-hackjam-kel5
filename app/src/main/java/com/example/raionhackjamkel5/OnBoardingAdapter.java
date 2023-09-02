@@ -69,9 +69,9 @@ public class OnBoardingAdapter extends PagerAdapter {
 
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) image.getLayoutParams();
         if (position == 0) {
-            params.topMargin = dpToPx(320); // Ubah 320 sesuai dengan nilai yang diinginkan
+            params.topMargin = dpToPx(320);
         } else if (position == 1) {
-            params.topMargin = dpToPx(167); // Ubah 167 sesuai dengan nilai yang diinginkan
+            params.topMargin = dpToPx(167);
         }
         image.setLayoutParams(params);
 
